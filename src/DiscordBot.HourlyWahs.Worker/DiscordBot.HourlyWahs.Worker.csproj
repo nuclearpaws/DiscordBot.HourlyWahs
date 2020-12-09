@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>dotnet-DiscordBot.HourlyWahs.Worker-3CA7973F-71FA-4048-932B-1D736DE17414</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscordBot.HourlyWahs.Core\DiscordBot.HourlyWahs.Core.csproj" />
+    <ProjectReference Include="..\DiscordBot.HourlyWahs.Infrastructure\DiscordBot.HourlyWahs.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
