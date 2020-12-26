@@ -1,17 +1,20 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DiscordBot.HourlyWahs.Worker
+namespace DiscordBot.HourlyWahs.Worker.Workers
 {
-    public class Worker : BackgroundService
+    public class DiscordWorker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly IMediator _mediator;
+        private readonly ILogger _logger;
 
-        public Worker(ILogger<Worker> logger)
+        public DiscordWorker(IMediator mediator, ILogger<DiscordWorker> logger)
         {
+            _mediator = mediator;
             _logger = logger;
         }
 
@@ -19,7 +22,7 @@ namespace DiscordBot.HourlyWahs.Worker
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation("Worker '{worker}' running at: {time}", nameof(DiscordWorker), DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
         }

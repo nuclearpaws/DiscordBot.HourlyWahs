@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DiscordBot.HourlyWahs.Core;
 using DiscordBot.HourlyWahs.Infrastructure;
+using DiscordBot.HourlyWahs.Worker.Workers;
 
 namespace DiscordBot.HourlyWahs.Worker
 {
@@ -16,9 +17,10 @@ namespace DiscordBot.HourlyWahs.Worker
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddInfrastructure(null);
-                    services.AddCore(null);
-                    services.AddHostedService<Worker>();
+                    services.AddInfrastructure(hostContext.Configuration);
+                    services.AddCore(hostContext.Configuration);
+                    services.AddHostedService<DiscordWorker>();
+                    services.AddHostedService<ImageCacheWorker>();
                 });
     }
 }
