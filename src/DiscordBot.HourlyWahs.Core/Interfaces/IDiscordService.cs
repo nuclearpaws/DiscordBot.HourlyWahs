@@ -1,7 +1,12 @@
+using System.Threading.Tasks;
+using DiscordBot.HourlyWahs.Core.Entities;
+
 namespace DiscordBot.HourlyWahs.Core.Interfaces
 {
     public interface IDiscordService
     {
-        void SendMessageWithImage(string serverId, string channelId, string message, object image);
+        Task StartBotAsync();
+        Task StopBotAsync();
+        Task SendMessageWithImageAsync(ulong serverId, ulong channelId, string message, FileData image);
     }
 }

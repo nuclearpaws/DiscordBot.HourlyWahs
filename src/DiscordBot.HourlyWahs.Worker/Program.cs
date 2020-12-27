@@ -20,7 +20,6 @@ namespace DiscordBot.HourlyWahs.Worker
                     services.AddInfrastructure(hostContext.Configuration);
                     services.AddCore(hostContext.Configuration);
                     services.AddHostedService<DiscordWorker>();
-                    services.AddHostedService<ImageCacheWorker>();
                 });
     }
 }

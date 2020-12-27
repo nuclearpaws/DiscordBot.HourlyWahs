@@ -6,7 +6,7 @@ namespace DiscordBot.HourlyWahs.Core.Interfaces
     public interface IMasterDataService
     {
         IEnumerable<DiscordServer> GetAllDiscordServers();
-        DiscordServer GetDiscordServer(string discordServerId);
+        DiscordServer GetDiscordServer(ulong discordServerId);
         void UpsertDiscordServer(DiscordServer discordServer);
         void DeleteDiscordServer(DiscordServer discordServer);
     }

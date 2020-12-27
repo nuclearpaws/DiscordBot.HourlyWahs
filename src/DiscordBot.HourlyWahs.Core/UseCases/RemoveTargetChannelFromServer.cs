@@ -6,12 +6,18 @@ using MediatR;
 
 namespace DiscordBot.HourlyWahs.Core.UseCases
 {
-    internal class RemoveTargetChannelForServer : IRequestHandler<RemoveTargetChannelForServer.Request, RemoveTargetChannelForServer.Response>
+    public class RemoveTargetChannelFromServer : IRequestHandler<RemoveTargetChannelFromServer.Request, RemoveTargetChannelFromServer.Response>
     {
         public class Request : IRequest<Response>
         {
-            public string ServerId { get; set; }
-            public string ChannelId { get; set; }
+            public ulong ServerId { get; set; }
+            public ulong ChannelId { get; set; }
+
+            public Request(ulong serverId, ulong channelId)
+            {
+                ServerId = serverId;
+                ChannelId = channelId;
+            }
         }
 
         public class Response
@@ -20,7 +26,7 @@ namespace DiscordBot.HourlyWahs.Core.UseCases
 
         private readonly IMasterDataService _masterDataService;
 
-        public RemoveTargetChannelForServer(IMasterDataService masterDataService)
+        public RemoveTargetChannelFromServer(IMasterDataService masterDataService)
         {
             _masterDataService = masterDataService;
         }

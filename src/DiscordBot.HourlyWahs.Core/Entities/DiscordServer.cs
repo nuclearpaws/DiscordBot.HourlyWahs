@@ -5,18 +5,20 @@ namespace DiscordBot.HourlyWahs.Core.Entities
 {
     public class DiscordServer
     {
-        public string ServerId { get; set; }
-        public ICollection<string> TargetChannelIds { get; set; }
+        public ulong ServerId { get; set; }
+        public ICollection<ulong> TargetChannelIds { get; set; }
         public DateTime DateAdded { get; set; }
 
         public DiscordServer()
         {
-            TargetChannelIds = new List<string>();
+            TargetChannelIds = new List<ulong>();
         }
 
-        public DiscordServer(string serverId, DateTime dateCreated)
+        public DiscordServer(ulong serverId, DateTime dateAdded)
             : this()
         {
+            ServerId = serverId;
+            DateAdded = dateAdded;
         }
     }
 }

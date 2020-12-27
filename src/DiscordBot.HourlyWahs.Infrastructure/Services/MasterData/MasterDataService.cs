@@ -30,13 +30,13 @@ namespace DiscordBot.HourlyWahs.Infrastructure.Services.MasterData
             return discordServers;
         }
 
-        public DiscordServer GetDiscordServer(string discordServerId)
+        public DiscordServer GetDiscordServer(ulong discordServerId)
         {
             var server = _context
                 .Servers
                 .AsNoTracking()
                 .Include(e => e.TargetChannels)
-                .FirstOrDefault(e => e.ServerId == discordServerId);
+                .FirstOrDefault(e => e.ServerId == $"{discordServerId}");
 
             if(server == null)
                 return null;
@@ -50,7 +50,7 @@ namespace DiscordBot.HourlyWahs.Infrastructure.Services.MasterData
             var server = _context
                 .Servers
                 .Include(e => e.TargetChannels)
-                .FirstOrDefault(e => e.ServerId == discordServer.ServerId);
+                .FirstOrDefault(e => e.ServerId == $"{discordServer.ServerId}");
 
             var now = _dateTimeService.GetCurrentDateTime();
 
@@ -58,13 +58,14 @@ namespace DiscordBot.HourlyWahs.Infrastructure.Services.MasterData
             {
                 server = new Server
                 {
-                    ServerId = discordServer.ServerId,
+                    ServerId = $"{discordServer.ServerId}",
                     DateAdded = now,
                     TargetChannels = discordServer
                         .TargetChannelIds
                         .Select(targetChannelId => new TargetChannel
                         {
                             Server = server,
+                            ChannelId = targetChannelId,
                             DateAdded = now,
                         })
                         .ToList(),
@@ -108,7 +109,7 @@ namespace DiscordBot.HourlyWahs.Infrastructure.Services.MasterData
         {
             var server = _context
                 .Servers
-                .FirstOrDefault(e => e.ServerId == discordServer.ServerId);
+                .FirstOrDefault(e => e.ServerId == $"{discordServer.ServerId}");
 
             if(server == null)
                 throw new ApplicationException($"Discord Server '{discordServer.ServerId}' does not exist in persistance.");
@@ -124,7 +125,7 @@ namespace DiscordBot.HourlyWahs.Infrastructure.Services.MasterData
         {
             var result = new DiscordServer
             {
-                ServerId = server.ServerId,
+                ServerId = uint.Parse(server.ServerId),
                 TargetChannelIds = server.TargetChannels.Select(channel => channel.ChannelId).ToList(),
                 DateAdded = server.DateAdded,
             };
